@@ -90,7 +90,7 @@ const help = () => {
   )}   Path to the local ${'`appz.json`'} file
       -Q ${chalk.bold.underline('DIR')}, --global-config=${chalk.bold.underline(
     'DIR'
-  )}    Path to the global ${'`.vercel`'} directory
+  )}    Path to the global ${'`.appz`'} directory
       --cwd [path]                   The current working directory
       --output [path]                Directory where built assets should be written to
       --prod                         Build a production deployment

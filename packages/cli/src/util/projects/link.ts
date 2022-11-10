@@ -23,7 +23,7 @@ import { isErrnoException, isError } from '../is-error';
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
-export const APPZ_DIR = '.vercel';
+export const APPZ_DIR = '.appz';
 export const APPZ_DIR_FALLBACK = '.now';
 export const APPZ_DIR_README = 'README.txt';
 export const APPZ_DIR_PROJECT = 'project.json';
@@ -44,10 +44,10 @@ const linkSchema = {
 };
 
 /**
- * Returns the `<cwd>/.vercel` directory for the current project
+ * Returns the `<cwd>/.appz` directory for the current project
  * with a fallback to <cwd>/.now` if it exists.
  *
- * Throws an error if *both* `.vercel` and `.now` directories exist.
+ * Throws an error if *both* `.appz` and `.now` directories exist.
  */
 export function getVercelDirectory(cwd: string = process.cwd()): string {
   const possibleDirs = [join(cwd, APPZ_DIR), join(cwd, APPZ_DIR_FALLBACK)];
@@ -56,7 +56,7 @@ export function getVercelDirectory(cwd: string = process.cwd()): string {
     throw new NowBuildError({
       code: 'CONFLICTING_CONFIG_DIRECTORIES',
       message:
-        'Both `.vercel` and `.now` directories exist. Please remove the `.now` directory.',
+        'Both `.appz` and `.now` directories exist. Please remove the `.now` directory.',
       link: 'https://vercel.link/combining-old-and-new-config',
     });
   }

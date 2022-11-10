@@ -53,7 +53,7 @@ const help = () => {
 
   ${chalk.gray('–')} Bisect with a known bad deployment
 
-      ${chalk.cyan(`$ ${pkgName} bisect --bad example-310pce9i0.vercel.app`)}
+      ${chalk.cyan(`$ ${pkgName} bisect --bad example-310pce9i0.appz.app`)}
 
   ${chalk.gray('–')} Automated bisect with a run script
 

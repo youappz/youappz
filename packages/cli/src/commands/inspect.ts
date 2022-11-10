@@ -29,7 +29,7 @@ const help = () => {
   )}   Path to the local ${'`appz.json`'} file
     -Q ${chalk.bold.underline('DIR')}, --global-config=${chalk.bold.underline(
     'DIR'
-  )}    Path to the global ${'`.vercel`'} directory
+  )}    Path to the global ${'`.appz`'} directory
     -t ${chalk.bold.underline('TOKEN')}, --token=${chalk.bold.underline(
     'TOKEN'
   )}        Login token
@@ -40,11 +40,11 @@ const help = () => {
 
   ${chalk.gray('–')} Get information about a deployment by its unique URL
 
-    ${chalk.cyan(`$ ${getPkgName()} inspect my-deployment-ji2fjij2.vercel.app`)}
+    ${chalk.cyan(`$ ${getPkgName()} inspect my-deployment-ji2fjij2.appz.app`)}
 
   ${chalk.gray('-')} Get information about the deployment an alias points to
 
-    ${chalk.cyan(`$ ${getPkgName()} inspect my-deployment.vercel.app`)}
+    ${chalk.cyan(`$ ${getPkgName()} inspect my-deployment.appz.app`)}
   `);
 };
 

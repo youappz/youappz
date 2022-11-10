@@ -28,8 +28,8 @@ function isGlobal() {
     : Boolean(process.env.npm_config_global);
 }
 
-function isVercel() {
-  return pkg.name === 'vercel';
+function isAppz() {
+  return pkg.name === 'youappz';
 }
 
 function validateNodeVersion() {
@@ -73,13 +73,6 @@ async function main() {
         `Please update to the latest Node.js LTS version to install Vercel CLI.`
     );
     process.exit(1);
-  }
-
-  if (isVercel() && isInNodeModules('now')) {
-    const uninstall = isYarn()
-      ? 'yarn global remove now'
-      : 'npm uninstall -g now';
-    console.error(`NOTE: Run \`${uninstall}\` to uninstall \`now\`\n`);
   }
 }
 

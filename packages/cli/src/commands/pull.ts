@@ -35,7 +35,7 @@ const help = () => {
   )}   Path to the local ${'`appz.json`'} file
     -Q ${chalk.bold.underline('DIR')}, --global-config=${chalk.bold.underline(
     'DIR'
-  )}    Path to the global ${'`.vercel`'} directory
+  )}    Path to the global ${'`.appz`'} directory
     -d, --debug                    Debug mode [off]
     --environment [environment]    Deployment environment [development]
     -y, --yes                      Skip questions when setting up new project using default scope and settings
@@ -45,7 +45,7 @@ const help = () => {
   ${chalk.gray(
     '–'
   )} Pull the latest Environment Variables and Project Settings from the cloud
-    and stores them in \`.vercel/.env.\${target}.local\` and \`.vercel/project.json\` respectively.
+    and stores them in \`.appz/.env.\${target}.local\` and \`.appz/project.json\` respectively.
 
     ${chalk.cyan(`$ ${getPkgName()} pull`)}
     ${chalk.cyan(`$ ${getPkgName()} pull ./path-to-project`)}
@@ -133,7 +133,7 @@ async function pullAllEnvFiles(
     project,
     environment,
     argv,
-    [join('.vercel', environmentFile)],
+    [join('.appz', environmentFile)],
     client.output,
     cwd,
     'vercel-cli:pull'

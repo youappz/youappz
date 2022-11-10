@@ -39,7 +39,7 @@ const help = () => {
   )}   Path to the local ${'`appz.json`'} file
     -Q ${chalk.bold.underline('DIR')}, --global-config=${chalk.bold.underline(
     'DIR'
-  )}    Path to the global ${'`.vercel`'} directory
+  )}    Path to the global ${'`.appz`'} directory
     -t ${chalk.bold.underline('TOKEN')}, --token=${chalk.bold.underline(
     'TOKEN'
   )}        Login token

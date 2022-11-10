@@ -12,7 +12,7 @@ export default function verify(
   ssoUserId?: string
 ) {
   const url = new URL('/registration/verify', client.apiUrl);
-  url.searchParams.set('token', verificationToken);
+  url.searchParams.set('code', verificationToken);
   if (email) {
     url.searchParams.set('email', email);
   }

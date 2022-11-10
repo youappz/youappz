@@ -13,7 +13,7 @@ export default async function prompt(
   let result: LoginResult = 1;
 
   const email = await readInput(client, 'Enter your email address:');
-  result = await doEmailLogin(client, email, ssoUserId);
+  result = await doEmailLogin(client, email);
 
   return result;
 }

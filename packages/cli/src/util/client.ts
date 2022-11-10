@@ -111,7 +111,7 @@ export default class Client extends EventEmitter implements Stdio {
     const headers = new Headers(opts.headers);
     headers.set('user-agent', ua);
     if (this.authConfig.token) {
-      headers.set('authorization', `Bearer ${this.authConfig.token}`);
+      headers.set('x-appz-auth', `${this.authConfig.token}`);
     }
 
     let body;
@@ -128,7 +128,7 @@ export default class Client extends EventEmitter implements Stdio {
       if (res) {
         return `#${requestId} ← ${res.status} ${
           res.statusText
-        }: ${res.headers.get('x-vercel-id')}`;
+        }: ${res.headers.get('x-appz-id')}`;
       } else {
         return `#${requestId} → ${opts.method || 'GET'} ${url}`;
       }

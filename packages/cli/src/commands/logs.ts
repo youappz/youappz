@@ -22,7 +22,7 @@ const help = () => {
   )}   Path to the local ${'`appz.json`'} file
     -Q ${chalk.bold.underline('DIR')}, --global-config=${chalk.bold.underline(
     'DIR'
-  )}    Path to the global ${'`.vercel`'} directory
+  )}    Path to the global ${'`.appz`'} directory
     -d, --debug                    Debug mode [off]
     -f, --follow                   Wait for additional data [off]
     -n ${chalk.bold.underline(

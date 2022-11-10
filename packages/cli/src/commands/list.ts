@@ -34,7 +34,7 @@ const help = () => {
   )}   Path to the local ${'`appz.json`'} file
     -Q ${chalk.bold.underline('DIR')}, --global-config=${chalk.bold.underline(
     'DIR'
-  )}    Path to the global ${'`.vercel`'} directory
+  )}    Path to the global ${'`.appz`'} directory
     -d, --debug                    Debug mode [off]
     -y, --yes                      Skip questions when setting up new project using default scope and settings
     -t ${chalk.bold.underline('TOKEN')}, --token=${chalk.bold.underline(
@@ -125,7 +125,7 @@ export default async function main(client: Client) {
 
   const { path } = pathValidation;
 
-  // retrieve `project` and `org` from .vercel
+  // retrieve `project` and `org` from .appz
   let link = await getLinkedProject(client, path);
 
   if (link.status === 'error') {
@@ -205,7 +205,7 @@ export default async function main(client: Client) {
   // Some people are using entire domains as app names, so
   // we need to account for this here
   const asHost = app ? toHost(app) : '';
-  if (asHost.endsWith('.now.sh') || asHost.endsWith('.vercel.app')) {
+  if (asHost.endsWith('.now.sh') || asHost.endsWith('.appz.app')) {
     note(
       `We suggest using ${getCommandName(
         'inspect <deployment>'

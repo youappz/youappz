@@ -147,7 +147,7 @@ export default async function main(client: Client) {
   } catch (err) {
     if (isErrnoException(err) && err.code === 'ENOTFOUND') {
       // Error message will look like the following:
-      // "request to https://api.vercel.com/v2/user failed, reason: getaddrinfo ENOTFOUND api.vercel.com"
+      // "request to https://api.appz.com/v2/user failed, reason: getaddrinfo ENOTFOUND api.appz.com"
       const matches = /getaddrinfo ENOTFOUND (.*)$/.exec(err.message || '');
       if (matches && matches[1]) {
         const hostname = matches[1];

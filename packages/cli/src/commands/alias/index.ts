@@ -30,7 +30,7 @@ const help = () => {
   )}        Path to the local ${'`appz.json`'} file
     -Q ${chalk.bold.underline('DIR')}, --global-config=${chalk.bold.underline(
     'DIR'
-  )}         Path to the global ${'`.vercel`'} directory
+  )}         Path to the global ${'`.appz`'} directory
     -d, --debug                         Debug mode [off]
     -t ${chalk.bold.underline('TOKEN')}, --token=${chalk.bold.underline(
     'TOKEN'
@@ -41,19 +41,19 @@ const help = () => {
 
   ${chalk.dim('Examples:')}
 
-  ${chalk.gray('–')} Add a new alias to ${chalk.underline('my-api.vercel.app')}
+  ${chalk.gray('–')} Add a new alias to ${chalk.underline('my-api.appz.app')}
 
       ${chalk.cyan(
         `$ ${getPkgName()} alias set ${chalk.underline(
-          'api-ownv3nc9f8.vercel.app'
-        )} ${chalk.underline('my-api.vercel.app')}`
+          'api-ownv3nc9f8.appz.app'
+        )} ${chalk.underline('my-api.appz.app')}`
       )}
 
       Custom domains work as alias targets
 
       ${chalk.cyan(
         `$ ${getPkgName()} alias set ${chalk.underline(
-          'api-ownv3nc9f8.vercel.app'
+          'api-ownv3nc9f8.appz.app'
         )} ${chalk.underline('my-api.com')}`
       )}
 

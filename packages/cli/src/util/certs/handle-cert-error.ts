@@ -56,8 +56,8 @@ export default function handleCertError<T>(
           cns.map(cn => {
             const parsed = parse(cn);
             return !parsed.error && parsed.subdomain
-              ? [parsed.subdomain, 'ALIAS', 'alias.vercel.com']
-              : ['', 'ALIAS', 'alias.vercel.com'];
+              ? [parsed.subdomain, 'ALIAS', 'alias.appz.com']
+              : ['', 'ALIAS', 'alias.appz.com'];
           })
         )}\n\n`
       );

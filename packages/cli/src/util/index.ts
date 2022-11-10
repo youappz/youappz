@@ -266,7 +266,7 @@ export default class Now extends EventEmitter {
 
         err.message =
           `You defined ${count} ${prefix} that did not match any source files (please ensure they are NOT defined in ${highlight(
-            '.vercelignore'
+            '.appzignore'
           )}):` +
           `\n- ${unreferencedBuildSpecs
             .map((item: any) => JSON.stringify(item))

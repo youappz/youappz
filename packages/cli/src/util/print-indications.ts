@@ -6,14 +6,14 @@ import { emoji, EmojiLabel, prependEmoji } from './emoji';
 
 export default function printIndications(client: Client, res: Response) {
   const indications = new Set(['warning', 'notice', 'tip']);
-  const regex = /^x-(?:vercel|now)-(warning|notice|tip)-(.*)$/;
+  const regex = /^x-(?:vercel|now|appz)-(warning|notice|tip)-(.*)$/;
 
   for (const [name, payload] of res.headers) {
     const match = name.match(regex);
     if (match) {
       const [, type, identifier] = match;
-      const action = res.headers.get(`x-vercel-action-${identifier}`);
-      const link = res.headers.get(`x-vercel-link-${identifier}`);
+      const action = res.headers.get(`x-appz-action-${identifier}`);
+      const link = res.headers.get(`x-appz-link-${identifier}`);
       if (indications.has(type)) {
         const newline = '\n';
         const message =

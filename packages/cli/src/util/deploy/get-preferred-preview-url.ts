@@ -20,7 +20,7 @@ export async function getPreferredPreviewURL(
   const preferredAliases = aliasList.filter(
     alias =>
       !alias.endsWith('.now.sh') &&
-      !alias.endsWith('.vercel.app') &&
+      !alias.endsWith('.appz.app') &&
       !isWildcardAlias(alias)
   );
   for (const alias of preferredAliases) {
@@ -40,7 +40,7 @@ export async function getPreferredPreviewURL(
     return { previewUrl: firstAlias, isWildcard: true };
   }
 
-  if (firstAlias.endsWith('.vercel.app') || firstAlias.endsWith('.now.sh')) {
+  if (firstAlias.endsWith('.appz.app') || firstAlias.endsWith('.now.sh')) {
     return { previewUrl: `https://${firstAlias}`, isWildcard: false };
   }
 

@@ -98,7 +98,7 @@ async function createBuildProcess(
 }
 
 export async function executeBuild(
-  vercelConfig: VercelConfig,
+  appzConfig: VercelConfig,
   devServer: DevServer,
   files: BuilderInputs,
   match: BuildMatch,
@@ -263,7 +263,7 @@ export async function executeBuild(
   }
 
   const { output } = result;
-  const { cleanUrls } = vercelConfig;
+  const { cleanUrls } = appzConfig;
 
   // Mimic fmeta-util and perform file renaming
   for (const [originalPath, value] of Object.entries(output)) {
@@ -361,7 +361,7 @@ export async function executeBuild(
           MemorySize: asset.memory || 3008,
           Environment: {
             Variables: {
-              ...vercelConfig.env,
+              ...appzConfig.env,
               ...asset.environment,
               ...envConfigs.runEnv,
             },
@@ -385,7 +385,7 @@ export async function executeBuild(
 }
 
 export async function getBuildMatches(
-  vercelConfig: VercelConfig,
+  appzConfig: VercelConfig,
   cwd: string,
   output: Output,
   devServer: DevServer,
@@ -400,7 +400,7 @@ export async function getBuildMatches(
   }
 
   const noMatches: Builder[] = [];
-  const builds = vercelConfig.builds || [{ src: '**', use: '@vercel/static' }];
+  const builds = appzConfig.builds || [{ src: '**', use: '@vercel/static' }];
   const builderSpecs = new Set(builds.map(b => b.use).filter(Boolean));
   const buildersWithPkgs = await importBuilders(builderSpecs, cwd, output);
 
@@ -471,7 +471,7 @@ export async function getBuildMatches(
         noMatches.length,
         true
       )} that did not match any source files (please ensure they are NOT defined in ${highlight(
-        '.vercelignore'
+        '.appzignore'
       )}):`
     );
     for (const buildConfig of noMatches) {

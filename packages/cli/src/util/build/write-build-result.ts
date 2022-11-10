@@ -369,12 +369,12 @@ async function writeLambda(
   );
   await Promise.all(ops);
 
-  // XXX: remove any `.vercel/builders` directories that were
+  // XXX: remove any `.appz/builders` directories that were
   // extracted into the `dest` dir. This is a temporary band-aid
   // to make `vercel-php` work since it is inadvertently including
-  // `.vercel/builders` into the Lambda files due to glob syntax.
+  // `.appz/builders` into the Lambda files due to glob syntax.
   // See: https://github.com/juicyfx/vercel-php/pull/232
-  for await (const dir of findDirs('.vercel', dest)) {
+  for await (const dir of findDirs('.appz', dest)) {
     const absDir = join(dest, dir);
     const entries = await fs.readdir(absDir);
     if (entries.includes('cache')) {
@@ -385,7 +385,7 @@ async function writeLambda(
           .map(entry => fs.remove(join(absDir, entry)))
       );
     } else {
-      // Delete the entire `.vercel` directory
+      // Delete the entire `.appz` directory
       await fs.remove(absDir);
     }
   }
@@ -393,7 +393,7 @@ async function writeLambda(
 
 /**
  * When the Root Directory setting is utilized, merge the contents of the
- * `.vercel/output` directory that was specified by the Builder into the
+ * `.appz/output` directory that was specified by the Builder into the
  * `vc build` output directory.
  */
 async function mergeBuilderOutput(
@@ -402,7 +402,7 @@ async function mergeBuilderOutput(
 ) {
   const absOutputDir = resolve(outputDir);
   if (absOutputDir === buildResult.buildOutputPath) {
-    // `.vercel/output` dir is already in the correct location,
+    // `.appz/output` dir is already in the correct location,
     // so no need to do anything
     return;
   }

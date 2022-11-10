@@ -19,7 +19,7 @@ export default async function assignAlias(
   if (
     alias.indexOf('.') !== -1 &&
     !alias.endsWith('.now.sh') &&
-    !alias.endsWith('.vercel.app')
+    !alias.endsWith('.appz.app')
   ) {
     // Now the domain shouldn't be available and it might or might not belong to the user
     const result = await setupDomain(output, client, alias, contextName);

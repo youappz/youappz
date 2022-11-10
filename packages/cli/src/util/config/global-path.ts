@@ -21,10 +21,10 @@ const getGlobalPathConfig = (): string => {
   const argv = getArgs(process.argv.slice(2), {}, { permissive: true });
   customPath = argv['--global-config'];
 
-  const vercelDirectories = XDGAppPaths('com.appz.cli').dataDirs();
+  const appzDirectories = XDGAppPaths('com.appz.cli').dataDirs();
 
   const possibleConfigPaths = [
-    ...vercelDirectories, // latest vercel directory
+    ...appzDirectories, // latest vercel directory
     path.join(homedir(), '.now'), // legacy config in user's home directory
     ...XDGAppPaths('now').dataDirs(), // legacy XDG directory
   ];
@@ -36,7 +36,7 @@ const getGlobalPathConfig = (): string => {
   return (
     (customPath && path.resolve(customPath)) ||
     possibleConfigPaths.find(configPath => isDirectory(configPath)) ||
-    vercelDirectories[0]
+    appzDirectories[0]
   );
 };
 

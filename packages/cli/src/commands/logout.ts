@@ -20,7 +20,7 @@ const help = () => {
   )}   Path to the local ${'`appz.json`'} file
     -Q ${chalk.bold.underline('DIR')}, --global-config=${chalk.bold.underline(
     'DIR'
-  )}    Path to the global ${'`.vercel`'} directory
+  )}    Path to the global ${'`.appz`'} directory
 
   ${chalk.dim('Examples:')}
 
@@ -61,7 +61,7 @@ export default async function main(client: Client): Promise<number> {
   let exitCode = 0;
 
   try {
-    await client.fetch(`/v3/user/tokens/current`, {
+    await client.fetch(`/user/tokens/current`, {
       method: 'DELETE',
       useCurrentTeam: false,
     });

@@ -17,7 +17,7 @@ export default async function login(
       if (err.code === 'not_exists') {
         throw new AccountNotFound(
           email,
-          `Please sign up: https://vercel.com/signup`
+          `Please sign up: https://youappz.com/signup`
         );
       }
 

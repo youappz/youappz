@@ -1160,9 +1160,9 @@ export default class DevServer {
     const allHeaders = {
       'cache-control': 'public, max-age=0, must-revalidate',
       ...headers,
-      server: 'Vercel',
-      'x-vercel-id': requestId,
-      'x-vercel-cache': 'MISS',
+      server: 'Youappz',
+      'x-appz-id': requestId,
+      'x-appz-cache': 'MISS',
     };
     for (const [name, value] of Object.entries(allHeaders)) {
       res.setHeader(name, value);
@@ -1182,9 +1182,9 @@ export default class DevServer {
     const headers: http.IncomingHttpHeaders = {
       connection: 'close',
       'x-real-ip': ip,
-      'x-vercel-deployment-url': host,
-      'x-vercel-forwarded-for': ip,
-      'x-vercel-id': requestId,
+      'x-appz-deployment-url': host,
+      'x-appz-forwarded-for': ip,
+      'x-appz-id': requestId,
     };
     if (xfwd) {
       headers['x-forwarded-host'] = host;
@@ -2109,6 +2109,7 @@ export default class DevServer {
           base === 'appz.json' ||
           base === '.nowignore' ||
           base === '.vercelignore' ||
+          base === '.appzignore' ||
           !p.startsWith(prefix)
         ) {
           return false;

@@ -4,12 +4,7 @@ import hp from '../util/humanize-path';
 import getArgs from '../util/get-args';
 import logo from '../util/output/logo';
 import prompt from '../util/login/prompt';
-import doSamlLogin from '../util/login/saml';
 import doEmailLogin from '../util/login/email';
-import doGithubLogin from '../util/login/github';
-import doGitlabLogin from '../util/login/gitlab';
-import doBitbucketLogin from '../util/login/bitbucket';
-import { prependEmoji, emoji } from '../util/emoji';
 import { getCommandName, getPkgName } from '../util/pkg-name';
 import getGlobalPathConfig from '../util/config/global-path';
 import { writeToAuthConfigFile, writeToConfigFile } from '../util/config/files';
@@ -28,7 +23,7 @@ const help = () => {
   )}   Path to the local ${'`appz.json`'} file
     -Q ${chalk.bold.underline('DIR')}, --global-config=${chalk.bold.underline(
     'DIR'
-  )}    Path to the global ${'`.vercel`'} directory
+  )}    Path to the global ${'`.appz`'} directory
 
   ${chalk.dim('Examples:')}
 
@@ -38,15 +33,7 @@ const help = () => {
 
   ${chalk.gray('–')} Log in using a specific email address
 
-    ${chalk.cyan(`$ ${getPkgName()} login john@doe.com`)}
-
-  ${chalk.gray('–')} Log in using a specific team "slug" for SAML Single Sign-On
-
-    ${chalk.cyan(`$ ${getPkgName()} login acme`)}
-
-  ${chalk.gray('–')} Log in using GitHub in "out-of-band" mode
-
-    ${chalk.cyan(`$ ${getPkgName()} login --github --oob`)}
+    ${chalk.cyan(`$ ${getPkgName()} login john@doe.com`)}    
 `);
 };
 
@@ -55,9 +42,6 @@ export default async function login(client: Client): Promise<number> {
 
   const argv = getArgs(client.argv.slice(2), {
     '--oob': Boolean,
-    '--github': Boolean,
-    '--gitlab': Boolean,
-    '--bitbucket': Boolean,
   });
 
   if (argv['--help']) {
@@ -76,17 +60,8 @@ export default async function login(client: Client): Promise<number> {
 
   if (input) {
     // Email or Team slug was provided via command line
-    if (validateEmail(input)) {
-      result = await doEmailLogin(client, input);
-    } else {
-      result = await doSamlLogin(client, input, argv['--oob']);
-    }
-  } else if (argv['--github']) {
-    result = await doGithubLogin(client, argv['--oob']);
-  } else if (argv['--gitlab']) {
-    result = await doGitlabLogin(client, argv['--oob']);
-  } else if (argv['--bitbucket']) {
-    result = await doBitbucketLogin(client, argv['--oob']);
+    validateEmail(input);
+    result = await doEmailLogin(client, input);
   } else {
     // Interactive mode
     result = await prompt(client, undefined, argv['--oob']);
@@ -119,13 +94,6 @@ export default async function login(client: Client): Promise<number> {
   output.print(
     `${chalk.cyan('Congratulations!')} ` +
       `You are now logged in. In order to deploy something, run ${getCommandName()}.\n`
-  );
-
-  output.print(
-    `${prependEmoji(
-      `Connect your Git Repositories to deploy every branch push automatically (https://vercel.link/git).`,
-      emoji('tip')
-    )}\n`
   );
 
   return 0;

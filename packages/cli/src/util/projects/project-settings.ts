@@ -21,7 +21,7 @@ export type ProjectLinkAndSettings = ProjectLink & {
 };
 
 // writeProjectSettings writes the project configuration to `vercel/project.json`
-// Write the project configuration to `.vercel/project.json`
+// Write the project configuration to `.appz/project.json`
 // that is needed for `vercel build` and `vercel dev` commands
 export async function writeProjectSettings(
   cwd: string,

@@ -33,7 +33,7 @@ type ResolveBuildersResult =
 
 /**
  * Imports the specified Vercel Builders, installing any missing ones
- * into `.vercel/builders` if necessary.
+ * into `.appz/builders` if necessary.
  */
 export async function importBuilders(
   builderSpecs: Set<string>,
@@ -103,15 +103,15 @@ export async function resolveBuilders(
       let builderPkg: PackageJson | undefined;
 
       try {
-        // First try `.vercel/builders`. The package name should always be available
+        // First try `.appz/builders`. The package name should always be available
         // at the top-level of `node_modules` since CLI is installing those directly.
         pkgPath = join(buildersDir, 'node_modules', name, 'package.json');
         builderPkg = await readJSON(pkgPath);
       } catch (err: any) {
         if (err?.code !== 'ENOENT') throw err;
-        // If `pkgPath` wasn't found in `.vercel/builders` then try as a CLI local
+        // If `pkgPath` wasn't found in `.appz/builders` then try as a CLI local
         // dependency. `require.resolve()` will throw if the Builder is not a CLI
-        // dep, in which case we'll install it into `.vercel/builders`.
+        // dep, in which case we'll install it into `.appz/builders`.
         // NOTE: `eval('require')` is necessary to avoid bad transpilation to `__webpack_require__`
         pkgPath = eval('require').resolve(`${name}/package.json`, {
           paths: [__dirname],
@@ -180,7 +180,7 @@ export async function resolveBuilders(
     }
   }
 
-  // Add any Builders that are not yet present into `.vercel/builders`
+  // Add any Builders that are not yet present into `.appz/builders`
   if (buildersToAdd.size > 0) {
     return { buildersToAdd };
   }
