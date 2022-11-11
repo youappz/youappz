@@ -1,0 +1,22 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "node build.mjs",
+    "deploy" : "AWS_PROFILE=r2-appz-live s5cmd --endpoint-url https://39776f06cb737bb0a935594aff7abad1.r2.cloudflarestorage.com cp public/ s3://appz-static/example-files/ "
+  },
+  
+  "dependencies": {
+    "@vercel/frameworks": "1.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.9",
+    "@types/tar": "6.1.3",
+    "@vercel/ncc": "0.34.0",
+    "execa": "6.1.0",
+    "fs-extra": "10.1.0",
+    "tar": "6.1.12"
+  }
+}
