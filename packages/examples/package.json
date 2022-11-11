@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "node build.mjs",
-    "deploy" : "AWS_PROFILE=r2-appz-live s5cmd --endpoint-url https://39776f06cb737bb0a935594aff7abad1.r2.cloudflarestorage.com cp public/ s3://appz-static/example-files/ "
+    "deploy" : "source .env && s5cmd  cp public/ s3://appz-static/example-files/ "
   },
   
   "dependencies": {
