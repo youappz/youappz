@@ -1,34 +1,29 @@
 name: Process Examples
-
 on:
   push:
     paths:
       - 'examples/**'
-
 jobs:
   compress:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
-        
       - name: Find changed folders
         id: find-changed
         run: |
-          changed_folders=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | \
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | \
             awk -F/ '{print $1}' | \
             sort -u | \
-            xargs -I{} find examples/{} -type d ! -name '.*' -print)
-          if [ -z "$changed_folders" ]; then
+            grep -v '/\.' | \
+            xargs -I{} echo "examples/{}" > changed_folders.txt
+          if [ ! -s changed_folders.txt ]; then
             echo "No changes in example folders."
             exit 1
           fi
-          echo "$changed_folders" > changed_folders.txt
         shell: bash
-        
       - name: Compress changed folders
         run: |
           while read -r folder; do
