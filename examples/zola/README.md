@@ -8,7 +8,7 @@ Deploy your own Zola project with Vercel.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/zola&template=zola)
 
-_Live Example: https://zola-template.vercel.app_
+_Live Example: https://zola-template.appz.dev
 
 ### Deploying From Your Terminal
 
