@@ -18,8 +18,8 @@ jobs:
       - name: Find changed folders
         id: find-changed
         run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | \
-            awk -F/ '!/^\./ {print $1}' | \
+          git diff --name-only --diff-filter=d ${{ github.event.before }} ${{ github.sha }} | \
+            awk -F/ '!/^\./ && /^examples/ {print $2}' | \
             sort -u | \
             xargs -I{} echo "examples/{}" > changed_folders.txt
           if [ ! -s changed_folders.txt ]; then
@@ -30,7 +30,7 @@ jobs:
         
       - name: Compress changed folders
         run: |
-          while read -r folder; do
+          while read -r folder; do            
             tar -czvf "$folder.tar.gz" "$folder"
           done < changed_folders.txt
         shell: bash
