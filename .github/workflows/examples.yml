@@ -18,14 +18,15 @@ jobs:
       - name: Find changed folders
         id: find-changed
         run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | \
+          changed_folders=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | \
             awk -F/ '{print $1}' | \
             sort -u | \
-            xargs -I{} echo "examples/{}" > changed_folders.txt
-          if [ ! -s changed_folders.txt ]; then
+            xargs -I{} find examples/{} -type d ! -name '.*' -print)
+          if [ -z "$changed_folders" ]; then
             echo "No changes in example folders."
             exit 1
           fi
+          echo "$changed_folders" > changed_folders.txt
         shell: bash
         
       - name: Compress changed folders
