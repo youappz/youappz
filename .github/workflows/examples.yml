@@ -1,20 +1,16 @@
 name: Compress Changed Folders
-
 on:
   push:
     paths:
       - 'examples/**'
-
 jobs:
   compress:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
-        
       - name: Find changed folders
         id: find-changed
         run: |
@@ -27,8 +23,7 @@ jobs:
             exit 1
           fi
         shell: bash
-        
-     - name: Compress changed folders
+      - name: Compress changed folders
         run: |
           while read -r folder; do
             folder_name=$(basename "$folder")
