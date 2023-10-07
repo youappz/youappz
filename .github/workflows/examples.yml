@@ -28,9 +28,11 @@ jobs:
           fi
         shell: bash
         
-      - name: Compress changed folders
+     - name: Compress changed folders
         run: |
-          while read -r folder; do            
-            tar -czvf "$folder.tar.gz" "$folder"
+          while read -r folder; do
+            folder_name=$(basename "$folder")
+            tar -czvf "$folder_name.tar.gz" -C "$(dirname "$folder")" "$folder_name"
           done < changed_folders.txt
+          ls -lahs
         shell: bash
