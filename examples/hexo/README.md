@@ -1,4 +1,4 @@
-![Hexo Logo](https://github.com/youappz/youappz/blob/main/packages/frameworks/logos/hexo.svg)
+![Hexo Logo](https://github.com/youappz/youappz/blob/master/packages/frameworks/logos/hexo.svg)
 
 # Hexo Example
 

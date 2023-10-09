@@ -1,12 +1,12 @@
 # Svelte
 
-This directory is a brief example of a [Svelte](https://svelte.dev/) site that can be deployed to Vercel with zero-configuration. If you need to use API Routes, we recommend using our [SvelteKit example](https://github.com/vercel/vercel/tree/main/examples/sveltekit).
+This directory is a brief example of a [Svelte](https://svelte.dev/) site that can be deployed to Youappz with zero-configuration.
 
 ## Deploy Your Own
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/svelte&template=svelte)
+[![Deploy with Youappz](https://youappz.com/button)](https://youappz.com/new/?url=https://get.youappz.com/examples/svelte.tar.gz)
 
-_Live Example: https://svelte.vercel.app_
+_Live Example: https://svelte.appz.dev_
 
 ## Getting Started
 

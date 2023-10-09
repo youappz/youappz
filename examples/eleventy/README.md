@@ -6,7 +6,7 @@ This directory is a brief example of a [Eleventy](https://www.11ty.io/) site tha
 
 Deploy your own Eleventy project with Youappz.
 
-[![Deploy with Youappz](https://youappz.com/button)](https://youappz.com/new/?url=https://get.youappz.com/eleventy.tar.gz)
+[![Deploy with Youappz](https://youappz.com/button)](https://youappz.com/new/?url=https://get.youappz.com/examples/eleventy.tar.gz)
 
 Live Example: https://eleventy-template.appz.dev_
 
