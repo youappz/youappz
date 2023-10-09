@@ -36,22 +36,22 @@ jobs:
 
       - name: Compress changed folders
         run: |
+          mkdir archives
           while read -r folder; do
             folder_name=$(basename "$folder")
-            tar -czvf "examples/$folder_name.tar.gz" -C "$(dirname "$folder")" "$folder_name"
+            tar -czvf "archives/$folder_name.tar.gz" -C "$(dirname "$folder")" "$folder_name"
           done < changed_folders.txt
           ls -lahs
         shell: bash
 
-      - name: Generate examples list.json
-        run: |
-          mkdir archives
-          touch archives/list.json
-          echo '[' > archives/list.json
-          find examples -type d -exec basename {} \; | awk '{print "  {\n    \"name\": \"" $0 "\"\n  },"}' >> list.json
-          sed -i '$ s/,$//' list.json
-          echo ']' >> archives/list.json
-        shell: bash
+      # - name: Generate examples list.json
+      #   run: |          
+      #     touch archives/list.json
+      #     echo '[' > archives/list.json
+      #     find examples -type d -exec basename {} \; | awk '{print "  {\n    \"name\": \"" $0 "\"\n  },"}' >> list.json
+      #     sed -i '$ s/,$//' list.json
+      #     echo ']' >> archives/list.json
+      #   shell: bash
 
       - name: Upload example archives to R2
         run: |
