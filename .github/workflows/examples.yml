@@ -21,6 +21,36 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Find deleted folders
+        id: find-deleted
+        run: |
+          git diff --name-only --diff-filter=D ${{ github.event.before }} ${{ github.sha }} | \
+            awk -F/ '!/^\./ && /^examples/ {print $2}' | \
+            sort -u | \
+            xargs -I{} echo "examples/{}" > deleted_folders.txt
+          if [ ! -s deleted_folders.txt ]; then
+            echo "No deleted folders found."
+          fi
+        shell: bash
+
+      - name: Delete example archives from R2
+        run: |
+          if [ -f deleted_folders.txt ]; then
+            while read -r folder; do
+              folder_name=$(basename "$folder")
+              aws s3api delete-object \
+                --endpoint-url $CLOUDFLARE_R2_ENDPOINT_URL \
+                --bucket $CLOUDFLARE_R2_BUCKET_NAME \
+                --key "examples/$folder_name.tar.gz"
+            done < deleted_folders.txt
+          else
+            echo "No deleted_folders.txt file found. Skipping deletion step."
+          fi
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "auto"
+          
       - name: Find changed folders
         id: find-changed
         run: |
@@ -65,34 +95,4 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "auto"
-
-      - name: Find deleted folders
-        id: find-deleted
-        run: |
-          git diff --name-only --diff-filter=D ${{ github.event.before }} ${{ github.sha }} | \
-            awk -F/ '!/^\./ && /^examples/ {print $2}' | \
-            sort -u | \
-            xargs -I{} echo "examples/{}" > deleted_folders.txt
-          if [ ! -s deleted_folders.txt ]; then
-            echo "No deleted folders found."
-          fi
-        shell: bash
-
-      - name: Delete example archives from R2
-        run: |
-          if [ -f deleted_folders.txt ]; then
-            while read -r folder; do
-              folder_name=$(basename "$folder")
-              aws s3api delete-object \
-                --endpoint-url $CLOUDFLARE_R2_ENDPOINT_URL \
-                --bucket $CLOUDFLARE_R2_BUCKET_NAME \
-                --key "examples/$folder_name.tar.gz"
-            done < deleted_folders.txt
-          else
-            echo "No deleted_folders.txt file found. Skipping deletion step."
-          fi
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "auto"
+          AWS_DEFAULT_REGION: "auto"      

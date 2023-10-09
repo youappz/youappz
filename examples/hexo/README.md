@@ -1,4 +1,4 @@
-![Hexo Logo](https://github.com/vercel/vercel/blob/main/packages/frameworks/logos/hexo.svg)
+![Hexo Logo](https://github.com/youappz/youappz/blob/main/packages/frameworks/logos/hexo.svg)
 
 # Hexo Example
 
@@ -6,9 +6,9 @@ This directory is a brief example of a [Hexo](https://hexo.io/) site that can be
 
 ## Deploy Your Own
 
-Deploy your own Hexo project with Vercel.
+Deploy your own Hexo project with Youappz.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/hexo&template=hexo)
+[![Deploy with Youappz](https://youppz.com/button)](https://youppz.com/?url=https://get.youappz.com/examples/hexo.tar.gz)
 
 _Live Example: https://hexo-template.appz.dev_
 
