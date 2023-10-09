@@ -45,6 +45,7 @@ jobs:
 
       - name: Generate examples list.json
         run: |
+          touch archives/list.json
           echo '[' > archives/list.json
           find examples -type d -exec basename {} \; | awk '{print "  {\n    \"name\": \"" $0 "\"\n  },"}' >> list.json
           sed -i '$ s/,$//' list.json
