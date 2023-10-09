@@ -1,14 +1,14 @@
 # Vue.js
 
-This directory is a brief example of a [Vue.js](https://vuejs.org/) app that can be deployed to Vercel with zero configuration.
+This directory is a brief example of a [Vue.js](https://vuejs.org/) app that can be deployed to Youappz with zero configuration.
 
 ## Deploy Your Own
 
-Deploy your own Vue.js project with Vercel.
+Deploy your own Vue.js project with Youappz.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/vue&template=vue)
+[![Deploy with Youappz](https://youappz.com/button)](https://youappz.com/new/?url=https://get.youappz.com/examples/vue.tar.gz)
 
-_Live Example: https://vue-template.vercel.app_
+_Live Example: https://vue-template.appz.dev_
 
 ## Running Locally
 

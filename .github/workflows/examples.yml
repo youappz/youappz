@@ -50,7 +50,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "auto"
-          
+
       - name: Find changed folders
         id: find-changed
         run: |
@@ -74,14 +74,10 @@ jobs:
           ls -lahs
         shell: bash
 
-      # - name: Generate examples list.json
-      #   run: |          
-      #     touch archives/list.json
-      #     echo '[' > archives/list.json
-      #     find examples -type d -exec basename {} \; | awk '{print "  {\n    \"name\": \"" $0 "\"\n  },"}' >> list.json
-      #     sed -i '$ s/,$//' list.json
-      #     echo ']' >> archives/list.json
-      #   shell: bash
+      - name: Generate examples list.json
+        run: |                    
+          find examples -mindepth 1 -maxdepth 1 -type d  -exec basename {} \; | jq -R '{"name": .}' | jq -s . > archives/list.json
+        shell: bash
 
       - name: Upload example archives to R2
         run: |
