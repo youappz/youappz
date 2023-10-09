@@ -1,14 +1,14 @@
 # Eleventy
 
-This directory is a brief example of a [Eleventy](https://www.11ty.io/) site that can be deployed to Vercel with zero configuration.
+This directory is a brief example of a [Eleventy](https://www.11ty.io/) site that can be deployed to Youappz with zero configuration.
 
 ## Deploy Your Own
 
-Deploy your own Eleventy project with Vercel.
+Deploy your own Eleventy project with Youappz.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/eleventy&template=eleventy)
+[![Deploy with Youappz](https://youappz.com/button)](https://youappz.com/new/?url=https://get.youappz.com/eleventy.tar.gz)
 
-_Live Example: https://eleventy-template.vercel.app_
+Live Example: https://eleventy-template.appz.dev_
 
 ## Getting Started
 
