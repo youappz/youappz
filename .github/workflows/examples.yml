@@ -1,8 +1,17 @@
-name: Compress Changed Folders
+name: Process Examples
+
 on:
   push:
+    branches:
+      - master
     paths:
       - 'examples/**'
+
+env:  
+  DO_NOT_TRACK: 1
+  CLOUDFLARE_R2_ENDPOINT_URL: https://39776f06cb737bb0a935594aff7abad1.r2.cloudflarestorage.com
+  CLOUDFLARE_R2_BUCKET_NAME: getappz
+
 jobs:
   compress:
     runs-on: ubuntu-latest
@@ -11,6 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
+
       - name: Find changed folders
         id: find-changed
         run: |
@@ -23,11 +33,64 @@ jobs:
             exit 1
           fi
         shell: bash
+
       - name: Compress changed folders
         run: |
           while read -r folder; do
             folder_name=$(basename "$folder")
-            tar -czvf "$folder_name.tar.gz" -C "$(dirname "$folder")" "$folder_name"
+            tar -czvf "archives/$folder_name.tar.gz" -C "$(dirname "$folder")" "$folder_name"
           done < changed_folders.txt
           ls -lahs
         shell: bash
+
+      - name: Generate examples list.json
+        run: |
+          echo '[' > archives/list.json
+          find examples -type d -exec basename {} \; | awk '{print "  {\n    \"name\": \"" $0 "\"\n  },"}' >> list.json
+          sed -i '$ s/,$//' list.json
+          echo ']' >> archives/list.json
+        shell: bash
+
+      - name: Upload example archives to R2
+        run: |
+          for file in archives/*.*; do
+            aws s3api put-object \
+              --endpoint-url $CLOUDFLARE_R2_ENDPOINT_URL \
+              --bucket $CLOUDFLARE_R2_BUCKET_NAME \
+              --key examples/$(basename "$file") \
+              --body "$file"
+          done
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "auto"
+
+      - name: Find deleted folders
+        id: find-deleted
+        run: |
+          git diff --name-only --diff-filter=D ${{ github.event.before }} ${{ github.sha }} | \
+            awk -F/ '!/^\./ && /^examples/ {print $2}' | \
+            sort -u | \
+            xargs -I{} echo "examples/{}" > deleted_folders.txt
+          if [ ! -s deleted_folders.txt ]; then
+            echo "No deleted folders found."
+          fi
+        shell: bash
+
+      - name: Delete example archives from R2
+        run: |
+          if [ -f deleted_folders.txt ]; then
+            while read -r folder; do
+              folder_name=$(basename "$folder")
+              aws s3api delete-object \
+                --endpoint-url $CLOUDFLARE_R2_ENDPOINT_URL \
+                --bucket $CLOUDFLARE_R2_BUCKET_NAME \
+                --key "examples/$folder_name.tar.gz"
+            done < deleted_folders.txt
+          else
+            echo "No deleted_folders.txt file found. Skipping deletion step."
+          fi
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "auto"
