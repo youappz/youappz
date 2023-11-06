@@ -21,44 +21,44 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Find deleted folders
+      - name: Find deleted examples
         id: find-deleted
         run: |
           git diff --name-only --diff-filter=D ${{ github.event.before }} ${{ github.sha }} | \
             awk -F/ '!/^\./ && /^examples/ {print $2}' | \
             sort -u | \
-            xargs -I{} echo "examples/{}" > deleted_folders.txt
-          if [ ! -s deleted_folders.txt ]; then
+            xargs -I{} echo "examples/{}" > deleted_examples.txt
+          if [ ! -s deleted_examples.txt ]; then
             echo "No deleted folders found."
           fi
         shell: bash
 
       - name: Delete example archives from R2
         run: |
-          if [ -f deleted_folders.txt ]; then
+          if [ -f deleted_examples.txt ]; then
             while read -r folder; do
               folder_name=$(basename "$folder")
               aws s3api delete-object \
                 --endpoint-url $CLOUDFLARE_R2_ENDPOINT_URL \
                 --bucket $CLOUDFLARE_R2_BUCKET_NAME \
                 --key "examples/$folder_name.tar.gz"
-            done < deleted_folders.txt
+            done < deleted_examples.txt
           else
-            echo "No deleted_folders.txt file found. Skipping deletion step."
+            echo "No deleted_examples.txt file found. Skipping deletion step."
           fi
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "auto"
 
-      - name: Find changed folders
+      - name: Find modified examples
         id: find-changed
         run: |
           git diff --name-only --diff-filter=d ${{ github.event.before }} ${{ github.sha }} | \
             awk -F/ '!/^\./ && /^examples/ {print $2}' | \
             sort -u | \
-            xargs -I{} echo "examples/{}" > changed_folders.txt
-          if [ ! -s changed_folders.txt ]; then
+            xargs -I{} echo "examples/{}" > modified_examples.txt
+          if [ ! -s modified_examples.txt ]; then
             echo "No changes in example folders."
             exit 1
           fi
@@ -66,12 +66,15 @@ jobs:
 
       - name: Compress changed folders
         run: |
-          mkdir archives
-          while read -r folder; do
-            folder_name=$(basename "$folder")
-            tar -czvf "archives/$folder_name.tar.gz" -C "$(dirname "$folder")" "$folder_name"
-          done < changed_folders.txt
-          ls -lahs
+          if [ -f modified_examples.txt ]; then
+            mkdir archives
+            while read -r folder; do
+              folder_name=$(basename "$folder")
+              tar -czvf "archives/$folder_name.tar.gz" -C "$(dirname "$folder")" "$folder_name"
+            done < modified_examples.txt
+           else
+            echo "No modified_examples.txt file found. Skipping Compression step."
+          fi
         shell: bash
 
       - name: Generate examples list.json
