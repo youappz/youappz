@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+version: 2.1
+contact_links:
+  - name: 📖 Youappz Documentation
+    url: https://docs.youappz.com/
+    about: Documentation about Youappz  
+  - name: 💬 Youappz Community Support
+    url: https://github.com/youappz/youappz/discussions    

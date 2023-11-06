@@ -1,20 +1,32 @@
----
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: feature
-assignees: ''
-
----
-
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
-
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
-
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
-
-**Additional context**
-Add any other context or screenshots about the feature request here.
+name: 🚀 Feature Request
+description: Submit a proposal/request for new Youappz feature
+title: "Youappz Feature Request"
+body:
+- type: textarea
+  id: feature-request
+  validations:
+    required: true
+  attributes:
+    label: Feature request
+    description: |
+      A clear and concise description of the feature request.
+    placeholder: |
+      This could be implemented by...
+- type: textarea
+  id: motivation
+  validations:
+    required: false
+  attributes:
+    label: Motivation
+    description: |
+      Please outline the motivation for this feature request. Is your feature request related to a problem? e.g., I'm always frustrated when [...].
+      If this is related to another issue, please link here too.
+      If you have a current workaround, please also provide it here.
+    placeholder: |
+      This feature would solve ...
+- type: textarea
+  id: contribution
+  attributes:
+    label: Contribution
+    description: |
+      Is there any way that you could help, e.g. by submitting a PR? Please make sure to read the [contributing guidelines](https://github.com/Youappz/Youappz/blob/main/CONTRIBUTING.md).
