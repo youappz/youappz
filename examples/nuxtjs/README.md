@@ -1,10 +1,10 @@
 # Nuxt.js Example
 
-Deploy your [Nuxt.js](https://nuxtjs.org) project to Vercel with zero configuration.
+Deploy your [Nuxt.js](https://nuxtjs.org) project to Youappz with zero configuration.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/nuxtjs&template=nuxtjs)
+[![Deploy with Vercel](https://youappz.com/button)](https://youappz.com/new?repository-url=https://get.youappz.com/examples/nuxtjs.tar.gz)
 
-_Live Example: https://nuxtjs-template.vercel.app_
+_Live Example: https://nuxtjs.appz-dev_
 
 ## Setup
 

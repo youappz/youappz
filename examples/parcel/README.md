@@ -23,11 +23,11 @@ As you make changes, you should see your app automatically update in the browser
 
 [![Deploy with Youappz](https://youappz.com/button)](https://youappz.com/new/?url=https://get.youappz.com/examples/parcel.tar.gz)
 
-_Live Example: https://parcel-template.appz.dev_
+_Live Example: https://parcel.appz.dev_
 
 ### Deploying From Your Terminal
 
-You can deploy your new Parcel project with a single command from your terminal using [Youappz CLI](https://youappz.com/download):
+You can deploy your new Parcel project with a single command from your terminal using [Youappz CLI](https://docs.youappz.com/docs/cli/overview):
 
 ```shell
 $ appz
