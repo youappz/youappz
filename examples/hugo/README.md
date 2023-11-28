@@ -12,8 +12,8 @@ _Live Example: https://hugo-template.appz.dev_
 
 ### How We Created This Example
 
-To get started with Hugo for deployment with Youappz, you can use the [Hugo CLI](https://gohugo.io/commands/) to initialize the project:
+To get started with Hugo for deployment with Youappz, you can use the [Youappz CLI](https://youappz.com/docs/cli/) to initialize the project:
 
 ```shell
-$ hugo new site project-name
+$ appz init hugo
 ```
